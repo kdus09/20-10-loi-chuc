@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng 20/10</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe4f1 50%, #ffd4e8 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #4a2e4b;
+            overflow-x: hidden;
+            position: relative;
+            /* Thêm padding-bottom để footer không che mất nội dung */
+            padding-bottom: 60px; 
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 192, 203, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Hiệu ứng trái tim bay */
+        .heart {
+            position: fixed;
+            font-size: 30px;
+            color: #ff6b9d;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            animation: floatHeart 6s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(-50px) rotate(15deg) scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-400px) rotate(-15deg) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-800px) rotate(25deg) scale(0.5);
+            }
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 25%; animation-delay: 1.5s; font-size: 25px; }
+        .heart:nth-child(3) { left: 40%; animation-delay: 3s; font-size: 35px; }
+        .heart:nth-child(4) { left: 55%; animation-delay: 4.5s; }
+        .heart:nth-child(5) { left: 70%; animation-delay: 2s; font-size: 28px; }
+        .heart:nth-child(6) { left: 85%; animation-delay: 0.5s; font-size: 32px; }
+
+        .page {
+            width: 90%;
+            max-width: 700px;
+            background: linear-gradient(145deg, #ffffff 0%, #fff5f9 100%);
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            display: none;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.2), 0 0 0 1px rgba(255, 182, 193, 0.3);
+            z-index: 1;
+        }
+
+        .active {
+            display: block;
+            /* Cập nhật hiệu ứng mượt hơn */
+            animation: fadeIn 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Trang 1 - Bức thư */
+        .letter-closed {
+            width: 400px;
+            height: 280px;
+            background: linear-gradient(145deg, #fff8fb 0%, #ffffff 100%);
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 3px solid #ffb6c1;
+            overflow: hidden;
+        }
+
+        .letter-closed:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(255, 105, 180, 0.35);
+        }
+
+        .letter-closed::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa5c3 100%);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .letter-closed::after {
+            content: "💌";
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+        }
+
+        .letter-content-closed {
+            padding: 100px 30px 30px;
+            font-style: italic;
+            color: #8b4f6f;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .note {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #d23669;
+            font-style: italic;
+            font-weight: 500;
+            /* Thêm hiệu ứng pulse */
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+
+        /* Thêm keyframe cho hiệu ứng pulse */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+        /* Trang 2 & 3 - Nội dung thư */
+        .letter-opened {
+            width: 100%;
+            max-width: 650px;
+            background: linear-gradient(145deg, #ffffff 0%, #fffbfd 100%);
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2);
+            position: relative;
+            padding: 60px 50px;
+            border: 2px solid #ffc0cb;
+            min-height: 500px;
+        }
+
+        .letter-opened::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa5c3 100%);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .decorative-corner {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+        }
+
+        .decorative-corner.top-left {
+            top: 10px;
+            left: 10px;
+            border-top: 3px solid rgba(255, 182, 193, 0.3);
+            border-left: 3px solid rgba(255, 182, 193, 0.3);
+            border-radius: 20px 0 0 0;
+        }
+
+        .decorative-corner.bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-bottom: 3px solid rgba(255, 182, 193, 0.3);
+            border-right: 3px solid rgba(255, 182, 193, 0.3);
+            border-radius: 0 0 20px 0;
+        }
+
+        .highlight {
+            font-size: 36px;
+            font-weight: bold;
+            color: #d23669;
+            margin: 40px 0 30px;
+            text-shadow: 2px 2px 4px rgba(210, 54, 105, 0.1);
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Thêm hiệu ứng hoa sau tiêu đề */
+        .highlight::after {
+            content: '🌸';
+            display: block;
+            font-size: 24px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .message {
+            line-height: 2;
+            font-size: 18px;
+            margin-bottom: 40px;
+            text-align: left;
+            padding: 0 30px;
+            color: #6b4f5a;
+        }
+
+        .message p {
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+
+        /* Sửa lại .fun-text (MBBank) */
+        .fun-text {
+            /* Bỏ position absolute */
+            margin-top: 40px; /* Thêm khoảng cách */
+            padding: 20px;
+            font-size: 14px;
+            color: #8b6f7e;
+            font-style: italic;
+            text-align: center; /* Căn giữa */
+            line-height: 1.7;
+            background: #fffafa; /* Thêm nền nhẹ */
+            border: 1px dashed #ffb6c1; /* Thêm viền */
+            border-radius: 10px; /* Bo góc */
+        }
+
+        /* Trang 3 */
+        .contact-info {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff5f9 0%, #ffffff 100%);
+            border-radius: 15px;
+            border-left: 5px solid #ff6b9d;
+            text-align: left;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.15);
+            line-height: 1.8;
+            /* Thêm hiệu ứng chuyển động */
+            transition: all 0.3s ease;
+        }
+
+        /* Thêm hiệu ứng hover cho contact-info */
+        .contact-info:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.25);
+        }
+
+        /* Sửa lại Footer */
+        .footer {
+            position: fixed; /* Cố định vị trí */
+            bottom: 10px; /* Cách đáy 10px */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 13px;
+            z-index: 2;
+            font-weight: 600;
+            color: #333; /* Đổi thành màu đen */
+            /* Xóa các thuộc tính background gradient */
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .page {
+                padding: 30px 20px;
+            }
+
+            .letter-closed {
+                width: 320px;
+                height: 240px;
+            }
+
+            .letter-opened {
+                padding: 40px 25px;
+            }
+
+            .message {
+                padding: 0 10px;
+                font-size: 16px;
+            }
+
+            .highlight {
+                font-size: 28px;
+            }
+
+            .footer {
+                font-size: 11px;
+                /* Xóa padding để đỡ vướng */
+            }
+
+            .fun-text {
+                font-size: 13px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart">💕</div>
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💝</div>
+    <div class="heart">💓</div>
+    <div class="heart">💞</div>
+
+    <div id="page1" class="page active">
+        <div class="letter-closed" onclick="openLetter()">
+            <div class="letter-content-closed">
+                <p>Nhấn để mở thư!</p>
+            </div>
+        </div>
+        <div class="note">✨ Ấn vào bức thư để xem lời chúc ✨</div>
+        </div>
+
+    <div id="page2" class="page">
+        <div class="letter-opened">
+            <div class="decorative-corner top-left"></div>
+            <div class="decorative-corner bottom-right"></div>
+            
+            <div class="highlight">Chúc mừng Quốc tế Phụ nữ 20/10</div>
+            <div class="message">
+                <p>Chúc mừng ngày 20/10! Gửi đến những cô gái rực rỡ trước màn hình, chúc bạn có một ngày lễ thật trọn vẹn bên gia đình và những người yêu thương.</p>
+                <p>Mong rằng mỗi ngày trôi qua, bạn luôn giữ được nụ cười tươi sáng, sự tự tin và năng lượng tích cực để chinh phục mọi thử thách. Bạn xứng đáng với những điều tuyệt vời nhất!</p>
+                <p>Hãy luôn tỏa sáng theo cách của riêng bạn, bởi bạn chính là nguồn cảm hứng cho thế giới xung quanh.</p>
+            </div>
+
+            <div class="fun-text">
+                Nếu bạn thấy hay,<br>
+                đừng ngại ủng hộ mình nhé!<br>
+                MBBank: 1107082009<br>
+                Hiện tại coder thiếu kinh phí<br>
+                nên chủ yếu là tấm lòng thôi nhé :)) <br>
+            </div>
+        </div>
+        </div>
+
+    <div id="page3" class="page">
+        <div class="letter-opened">
+            <div class="decorative-corner top-left"></div>
+            <div class="decorative-corner bottom-right"></div>
+            
+            <div class="highlight">Cảm ơn bạn! 🌸</div>
+            <div class="message">
+                <p>Cảm ơn bạn đã dành thời gian trải nghiệm món quà 20/10 này!</p>
+                <div class="contact-info">
+                    <p>💝 Nếu bạn muốn lấy source code hoặc muốn mình thiết kế một trang đặc biệt để tặng người thương, hãy nhắn tin cho mình nhé! Chắc chắn sẽ có một món quà thật ý nghĩa!</p>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <div class="footer">
+        Copyright (c) 2025 Le The Khoi. All Rights Reserved
+    </div>
+
+    <script>
+        function openLetter() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+
+            // Tự động chuyển sang trang 3 sau 10 giây (10000ms)
+            setTimeout(function() {
+                document.getElementById('page2').classList.remove('active');
+                document.getElementById('page3').classList.add('active');
+            }, 10000); // Đổi 5000 thành 10000
+        }
+    </script>
+</body>
+</html>
